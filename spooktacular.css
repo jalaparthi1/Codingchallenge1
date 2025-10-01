@@ -1,0 +1,276 @@
+/* ========== Variables & Base ========== */
+:root {
+  --pumpkin: #FF7518;
+  --witch-purple: #4B0082;
+  --monster-green: #228B22;
+  --black: #000;
+  --ghost: #FFF;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 2rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--black);
+  color: var(--ghost);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+h1, h2 {
+  font-family: 'Creepster', cursive;
+  color: var(--pumpkin);
+  text-align: center;
+  margin: var(--space-4) 0;
+}
+
+/* ========== Header ========== */
+header {
+  position: sticky;
+  top: 0;
+  background: var(--black);
+  padding: var(--space-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+.logo {
+  color: var(--pumpkin);
+  font-size: 1.5rem;
+}
+
+nav a {
+  color: var(--ghost);
+  margin: 0 var(--space-2);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color .3s, transform .3s;
+}
+
+nav a:hover, nav a:focus {
+  color: var(--pumpkin);
+  transform: translateY(-3px);
+}
+
+/* ========== Pages ========== */
+.page {
+  display: none;
+  min-height: 100vh;
+  padding: var(--space-4);
+  text-align: center;
+  position: relative;
+}
+
+.page:target {
+  display: block;
+  animation: fadeIn 1s ease;
+}
+
+.next-btn {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--witch-purple);
+  color: var(--ghost);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background .3s;
+}
+
+.next-btn:hover {
+  background: var(--monster-green);
+}
+
+/* ========== Page Themes ========== */
+.hero {
+  background: linear-gradient(var(--witch-purple), var(--black));
+  padding: var(--space-4);
+  border-radius: 1rem;
+  position: relative;
+}
+
+.forest {
+  background: linear-gradient(var(--black), var(--monster-green));
+  padding: var(--space-4);
+  position: relative;
+  overflow: hidden;
+}
+
+.pumpkin-patch {
+  background: linear-gradient(var(--pumpkin), var(--black));
+  padding: var(--space-4);
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========== Animations ========== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Moon glow */
+.moon {
+  width: 120px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  animation: glow 3s infinite alternate;
+}
+@keyframes glow {
+  from { filter: drop-shadow(0 0 5px var(--ghost)); }
+  to { filter: drop-shadow(0 0 25px var(--ghost)); }
+}
+
+.cobweb {
+  width: 100px;
+  position: absolute;
+  top: 0;
+  font-size: 0;   /* hides any fallback text */
+}
+
+
+/* Bat flying */
+.bat {
+  width: 100px;
+  position: absolute;
+  top: 30%;
+  left: -120px;
+  animation: fly 8s linear infinite;
+}
+@keyframes fly {
+  from { left: -120px; top: 30%; }
+  to { left: 110%; top: 40%; }
+}
+
+/* CSS Ghost */
+.ghost {
+  width: 80px;
+  height: 100px;
+  background: var(--ghost);
+  border-radius: 50% 50% 40% 40%;
+  position: absolute;
+  bottom: 20%;
+  left: 40%;
+  animation: float 4s ease-in-out infinite;
+}
+.ghost::before, .ghost::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  width: 25px;
+  height: 25px;
+  background: var(--ghost);
+  border-radius: 50%;
+}
+.ghost::before { left: 0; }
+.ghost::after { right: 0; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(-30px); opacity: 0.7; }
+}
+
+/* Fog drifting layers */
+.fog {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 40%;
+  background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15), transparent 70%),
+              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.15), transparent 70%),
+              radial-gradient(circle at 50% 100%, rgba(255,255,255,0.2), transparent 80%);
+  pointer-events: none;
+}
+.fog1 { animation: fog-drift 20s linear infinite; }
+.fog2 { animation: fog-drift2 30s linear infinite; opacity: 0.6; }
+.fog3 { animation: fog-drift3 40s linear infinite; opacity: 0.4; }
+
+@keyframes fog-drift {
+  from { transform: translateX(-40px); }
+  to { transform: translateX(40px); }
+}
+@keyframes fog-drift2 {
+  from { transform: translateX(60px); }
+  to { transform: translateX(-60px); }
+}
+@keyframes fog-drift3 {
+  from { transform: translateX(-80px); }
+  to { transform: translateX(80px); }
+}
+
+/* Pumpkin (CSS circle instead of giant image) */
+.pumpkin {
+  width: 120px;
+  height: 120px;
+  background: var(--pumpkin);
+  border-radius: 50%;
+  margin: 2rem auto;
+  animation: pulse 2s infinite alternate;
+  position: relative;
+}
+.pumpkin::before,
+.pumpkin::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  width: 20px;
+  height: 20px;
+  background: var(--pumpkin);
+  border-radius: 50%;
+}
+.pumpkin::before { left: 20px; }
+.pumpkin::after { right: 20px; }
+
+@keyframes pulse {
+  from { box-shadow: 0 0 10px var(--pumpkin); }
+  to { box-shadow: 0 0 30px var(--pumpkin); }
+}
+
+/* Witch flying */
+.witch {
+  width: 150px;
+  position: absolute;
+  top: 20%;
+  left: -200px;
+  animation: broom-fly 12s linear infinite;
+}
+@keyframes broom-fly {
+  from { left: -200px; top: 20%; }
+  to { left: 110%; top: 10%; }
+}
+
+/* ========== Footer ========== */
+footer {
+  text-align: center;
+  padding: var(--space-3);
+  background: var(--black);
+  border-top: 1px solid var(--witch-purple);
+  margin-top: var(--space-4);
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  h1 { font-size: 1.2rem; }
+  h2 { font-size: 1rem; }
+  .moon { width: 80px; }
+  .witch { width: 100px; }
+}
